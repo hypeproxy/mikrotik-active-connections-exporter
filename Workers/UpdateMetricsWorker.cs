@@ -16,11 +16,9 @@ public class UpdateMetricsWorker(ILogger<UpdateMetricsWorker> logger, MetricServ
         .CreateGauge("mikrotik_connection", "Active connections on MikroTik router", new GaugeConfiguration
         {
             LabelNames = [
-                // "id",
                 "protocol",
                 "src_address",
                 "dst_address", 
-                // "tcp_state", "timeout", "connection_type", "connection_mark", "reply_dst_address", "reply_src_address", 
                 "country",
                 "city",
                 "latitude", 
@@ -68,13 +66,6 @@ public class UpdateMetricsWorker(ILogger<UpdateMetricsWorker> logger, MetricServ
                     connection.Protocol,
                     IPEndPoint.Parse(connection.SrcAddress).Address.ToString(),
                     IPEndPoint.Parse(connection.DstAddress).Address.ToString(),
-                    // connection.Id,
-                    // connection.TcpState,
-                    // connection.Timeout,
-                    // connection.ConnectionType,
-                    // connection.ConnectionMark,
-                    // connection.ReplyDstAddress, 
-                    // connection.ReplySrcAddress,
                     country,
                     city,
                     latitude.ToString(CultureInfo.InvariantCulture),
