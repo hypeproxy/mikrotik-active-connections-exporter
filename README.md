@@ -44,6 +44,11 @@ This command will run the exporter in detached mode and map port 9021 of your ho
 
 ## Exposed Metrics
 
+The following metrics are exposed by the service, providing detailed insights into the network activity and geographic distribution of connections on your MikroTik router:
+
+- `mikrotik_total_connections`: A gauge that shows the total number of active connections on the MikroTik router. This metric helps you monitor the overall load and activity on your network.
+- `active_connections`: A gauge that indicates the current number of active connections being tracked. This is a more granular count that can help in identifying active sessions and their dynamics over time.
+
 ```
 # HELP mikrotik_total_connections Total number of active connections on MikroTik router
 # TYPE mikrotik_total_connections gauge
