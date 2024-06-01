@@ -13,7 +13,14 @@ public class MetricService
 		var username = Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_USERNAME") ?? throw new ArgumentException("Environment variable 'MIKROTIK_ROUTER_USERNAME' is missing.");
 		var password = Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_PASSWORD") ?? throw new ArgumentException("Environment variable 'MIKROTIK_ROUTER_PASSWORD' is missing.");
 		
-		using var connection = ConnectionFactory.OpenConnection(TikConnectionType.Api, host, port, username, password);
-		return connection.LoadAll<FirewallConnection>().ToList();
+		try
+		{
+			using var connection = ConnectionFactory.OpenConnection(TikConnectionType.Api, host, port, username, password);
+			return connection.LoadAll<FirewallConnection>().ToList();
+		}
+		catch
+		{
+			return [];
+		}
 	}
 }
