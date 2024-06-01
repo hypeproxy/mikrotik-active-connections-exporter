@@ -13,4 +13,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 9071
 ENV ASPNETCORE_URLS=http://0.0.0.0:9071
-ENTRYPOINT ["dotnet", "MikrotikActiveConnectionsExporter.csproj"]
+ENTRYPOINT ["dotnet", "MikrotikActiveConnectionsExporter.dll"]

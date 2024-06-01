@@ -29,7 +29,7 @@ docker run -d \
   -e MIKROTIK_ROUTER_PORT="8728" \
   -e MIKROTIK_ROUTER_USERNAME="mikrotik-exporter" \
   -e MIKROTIK_ROUTER_PASSWORD="P4ssw0rd" \
-  -p 9021:9021 \
+  -p 9071:9071 \
   ghcr.io/hypeproxy/mikrotik-active-connections-exporter:latest
 ```
 
@@ -40,7 +40,7 @@ Replace the following placeholders with your actual Mikrotik router details:
 - `mikrotik-exporter`: The username for your router.
 - `P4ssw0rd`: The password for your router.
 
-This command will run the exporter in detached mode and map port 9021 of your host to the container, making it accessible for monitoring and analysis.
+This command will run the exporter in detached mode and map port 9071 of your host to the container, making it accessible for monitoring and analysis.
 
 ## Exposed Metrics
 
