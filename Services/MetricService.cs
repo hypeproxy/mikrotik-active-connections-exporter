@@ -8,10 +8,10 @@ public class MetricService
 {
 	public List<FirewallConnection> GetConnections()
 	{
-		const string host = "10.2.0.1";
-		const int port = 18728;
-		const string username = "mikrotik-exporter";
-		const string password = "9rwETnKPtBJquqPD#Mg%GeFumHb$9H";
+		var host = Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_ADDRESS") ?? "127.0.0.1";
+		var port = int.TryParse(Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_PORT"), out var parsedPort) ? parsedPort : 8728;
+		var username = Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_USERNAME") ?? throw new ArgumentException("Environment variable 'MIKROTIK_ROUTER_USERNAME' is missing.");
+		var password = Environment.GetEnvironmentVariable("MIKROTIK_ROUTER_PASSWORD") ?? throw new ArgumentException("Environment variable 'MIKROTIK_ROUTER_PASSWORD' is missing.");
 		
 		using var connection = ConnectionFactory.OpenConnection(TikConnectionType.Api, host, port, username, password);
 		return connection.LoadAll<FirewallConnection>().ToList();

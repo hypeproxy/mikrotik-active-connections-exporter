@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Net;
+using ClintSharp;
 using HypeProxy.PrometheusExporter.MikrotikActiveConnections.Services;
 using MaxMind.GeoIP2;
 using Prometheus;
@@ -15,8 +16,15 @@ public class UpdateMetricsWorker(ILogger<UpdateMetricsWorker> logger, MetricServ
         .CreateGauge("mikrotik_connection", "Active connections on MikroTik router", new GaugeConfiguration
         {
             LabelNames = [
-                "id", "src_address", "dst_address", "protocol", "tcp_state", "timeout", "connection_type", "connection_mark", "reply_dst_address", "reply_src_address", 
-                "city", "country", "latitude", "longitude"
+                // "id",
+                "protocol",
+                "src_address",
+                "dst_address", 
+                // "tcp_state", "timeout", "connection_type", "connection_mark", "reply_dst_address", "reply_src_address", 
+                "country",
+                "city",
+                "latitude", 
+                "longitude"
             ]
         });
 
@@ -44,7 +52,7 @@ public class UpdateMetricsWorker(ILogger<UpdateMetricsWorker> logger, MetricServ
 
                 try
                 {
-                    var ip = IPEndPoint.Parse(connection.DstAddress).Address;
+                    var ip = IPEndPoint.Parse(connection.SrcAddress).Address;
                     var response = reader.City(ip);
                     city = response.City.Name ?? "-";
                     country = response.Country.Name ?? "-";
@@ -57,21 +65,21 @@ public class UpdateMetricsWorker(ILogger<UpdateMetricsWorker> logger, MetricServ
                 }
                 
                 MikrotikConnectionGauge.WithLabels(
-                    connection.Id,
-                    connection.SrcAddress,
-                    connection.DstAddress,
                     connection.Protocol,
-                    connection.TcpState,
-                    connection.Timeout,
-                    connection.ConnectionType,
-                    connection.ConnectionMark,
-                    connection.ReplyDstAddress,
-                    connection.ReplySrcAddress,
-                    city,
+                    IPEndPoint.Parse(connection.SrcAddress).Address.ToString(),
+                    IPEndPoint.Parse(connection.DstAddress).Address.ToString(),
+                    // connection.Id,
+                    // connection.TcpState,
+                    // connection.Timeout,
+                    // connection.ConnectionType,
+                    // connection.ConnectionMark,
+                    // connection.ReplyDstAddress, 
+                    // connection.ReplySrcAddress,
                     country,
+                    city,
                     latitude.ToString(CultureInfo.InvariantCulture),
                     longitude.ToString(CultureInfo.InvariantCulture)
-                ).Set(1);
+                ).Inc();
             }
             
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);

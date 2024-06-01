@@ -45,15 +45,20 @@ This command will run the exporter in detached mode and map port 9021 of your ho
 ## Exposed Metrics
 
 ```
+# HELP mikrotik_total_connections Total number of active connections on MikroTik router
+# TYPE mikrotik_total_connections gauge
+mikrotik_total_connections 10668
+
 # HELP active_connections Number of active connections
 # TYPE active_connections gauge
 active_connections 1288
-active_connections{protocol="tcp",srcAddress="109.77.102.72:7378",dstAddress="109.77.102.74:6965",replySrcAddress="109.190.102.74:6965",replyDstAddress="109.190.102.72:37319",latitude="48,86",longitude="2,35"} 1
-active_connections{protocol="tcp",srcAddress="109.77.102.72:64122",dstAddress="109.77.102.74:6629",replySrcAddress="109.190.102.74:6629",replyDstAddress="109.190.102.72:57901",latitude="48,86",longitude="2,35"} 1
+mikrotik_connection{protocol="tcp",src_address="174.138.11.243",dst_address="72.154.87.221",country="United States",city="Los Angeles",latitude="34.053",longitude="-118.2642"} 22
+mikrotik_connection{protocol="tcp",src_address="167.71.66.180",dst_address="72.154.87.221",country="United States",city="New York",latitude="40.7584",longitude="-73.9794"} 31
+mikrotik_connection{protocol="tcp",src_address="84.17.41.34",dst_address="72.154.87.221",country="Italy",city="-",latitude="42.8333",longitude="12.8333"} 48
 ```
 
 ## Contributions
 
 Contributions are welcome! If you have suggestions for improvements, please submit a pull request or open an issue on the GitHub repository.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for more details.
