@@ -19,4 +19,10 @@
       <PackageReference Include="tik4net" Version="3.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="GeoIP2-City.mmdb">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
